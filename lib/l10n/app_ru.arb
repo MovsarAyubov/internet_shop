@@ -1,0 +1,8 @@
+{
+          "mainPage" : "Главная",
+          "textFieldHintText" : "Поиск товаров",
+          "catalog" : "Каталог",
+          "categories" : "Категории",
+          "products" : "Товары",
+          "price" : "Цена"
+}

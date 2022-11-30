@@ -1,0 +1,8 @@
+{
+          "mainPage" : "Main page",
+          "textFieldHintText" : "Searching",
+          "catalog" : "Catalog",
+          "categories" : "Categories",
+          "products" : "Products",
+          "price" : "Price"
+}
