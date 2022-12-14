@@ -1,19 +1,24 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/components/custom_sized_box.dart';
 import '../../../../core/components/size_config.dart';
-import '../cubit/categories_state.dart';
-import '../cubit/smooth_indicator_cubit.dart';
+import '../../../../core/cubits/smooth_indicator_cubit.dart';
+import '../../../../core/cubits/smooth_indicator_state.dart';
+import '../../../../core/widgets/my_smooth_indicator.dart';
+import '../../../../router/app_router.dart';
+import '../cubit/discounted_products_cubit.dart';
 import 'category_banner.dart';
-import 'my_smooth_indicator.dart';
 
 class CarouselBuilder extends StatelessWidget {
-  final LoadedCategoriesState state;
+  final AppRouter appRouter;
+  final DiscountedProductsCubit discountedProductsCubit;
   final SmoothIndicatorCubit indicatorCubit;
   const CarouselBuilder({
     Key? key,
-    required this.state,
+    required this.appRouter,
+    required this.discountedProductsCubit,
     required this.indicatorCubit,
   }) : super(key: key);
 
@@ -24,29 +29,47 @@ class CarouselBuilder extends StatelessWidget {
         CarouselSlider.builder(
           options: CarouselOptions(
               onPageChanged: (index, reason) {
-                indicatorCubit.changeCategoryIndicatorState(
-                    indicatorIndex: index);
+                indicatorCubit.changeDiscountedProductsIndicator(index);
               },
               height: SizeConfig(context, 140)(),
               viewportFraction: 0.8,
               enableInfiniteScroll: true,
               enlargeCenterPage: true,
-              autoPlayInterval: const Duration(seconds: 5),
+              autoPlayInterval: const Duration(seconds: 2),
               autoPlay: true,
               pageSnapping: true),
-          itemCount: state.allCategoriesEntity.length,
+          itemCount: 4,
           itemBuilder: (context, index, realIndex) {
-            return CategoryBanner(
-                categoryName: state.allCategoriesEntity[index].name,
-                imageUrl: state.allCategoriesEntity[index].image);
+            return InkWell(
+              onTap: () {
+                appRouter.push(
+                  ProductRoute(
+                    showSimilarProducts: false,
+                    appRouter: appRouter,
+                    products: discountedProductsCubit.state.discountedProducts,
+                    indicatorCubit: indicatorCubit,
+                    concreteProductEntity:
+                        discountedProductsCubit.state.discountedProducts[index],
+                  ),
+                );
+              },
+              child: DiscountedProductBanner(
+                  imageUrl: discountedProductsCubit
+                      .state.discountedProducts[index].images[0]),
+            );
           },
         ),
         const CustomSizedBox(
           height: 5,
         ),
-        MySmoothIndicator(
-            indicatorCubit: indicatorCubit,
-            itemCount: state.allCategoriesEntity.length)
+        BlocBuilder<SmoothIndicatorCubit, SmoothIndicatorState>(
+            bloc: indicatorCubit,
+            builder: (context, indicatorState) {
+              return MySmoothIndicator(
+                  activeIndex:
+                      indicatorCubit.state.discountedProductsIndicatorIndex,
+                  itemCount: 4);
+            })
       ],
     );
   }

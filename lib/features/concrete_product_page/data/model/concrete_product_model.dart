@@ -19,8 +19,6 @@ class ConcreteProductModel extends ConcreteProductEntity {
 
   factory ConcreteProductModel.fromJson(Map<String, dynamic> json) =>
       _$ConcreteProductModelFromJson(json);
-
-  Map<String, dynamic> toJson() => _$ConcreteProductModelToJson(this);
 }
 
 @JsonSerializable()
@@ -30,6 +28,4 @@ class CategoryModel extends Category {
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) =>
       _$CategoryModelFromJson(json);
-
-  Map<String, dynamic> toJson() => _$CategoryModelToJson(this);
 }

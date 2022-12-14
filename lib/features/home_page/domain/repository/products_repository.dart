@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/error/failure.dart';
-import '../entity/list_of_products_entity.dart';
+import '../../../concrete_product_page/domain/entity/product_entity.dart';
 
 abstract class ListOfProductsRepository {
-  Future<Either<Failure, ListOfProductsEndtity>> getListOfProducts(
+  Future<Either<Failure, List<ConcreteProductEntity>>> getListOfProducts(
       {required int page, required int count});
 }

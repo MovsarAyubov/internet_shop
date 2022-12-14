@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+import 'package:internet_shop/features/concrete_product_page/domain/entity/product_entity.dart';
 
 import '../../../../core/error/failure.dart';
-import '../../domain/entity/list_of_categories.dart';
 import '../../domain/repository/categories_repository.dart';
 import '../sourse/categories_source.dart';
 
@@ -15,11 +15,11 @@ class AllCategoriesRepositoryImpl implements AllCategoriesRepository {
     required this.loadingCategoriesSource,
   });
   @override
-  Future<Either<Failure, AllCategoriesEntity>> getAllCategories() async {
+  Future<Either<Failure, List<Category>>> getAllCategories() async {
     try {
       final remoteAllCategories =
           await loadingCategoriesSource.getAllCategories();
-      return Right(remoteAllCategories);
+      return Right(remoteAllCategories.allCategories);
     } on SocketException {
       return Left(ServerFailure());
     }

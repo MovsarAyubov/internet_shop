@@ -4,5 +4,39 @@
           "catalog" : "Catalog",
           "categories" : "Categories",
           "products" : "Products",
-          "price" : "Price"
+          "price" : "Price",
+          "newPrice" : "New price",
+          "oldPrice" : "Old price",
+          "description" : "Description",
+          "deleteFromShoppingList" : "Remove from shopping list",
+          "addToShoppingList" :  "Add to shopping List",
+          "shoppingList" : "Shopping list",
+          "similarProducts" : "Similar products",
+          "products" : "Products:",
+          "cleanShoppingList" : "Clean shopping list",
+          "emptyShoppingList" : "Shopping list is empty",
+          "editAvatar" : "Change avatar",
+          "favorites" : "Favorites",
+          "favoritesIsEmpty" : "Favorites is empty", 
+          "alreadyAdded" : "Already in shopping list",
+          "yourShoppingList" : "Your shopping list",
+          "orderAmount" : "Order amount",
+          "makeAnOrder" : "Make an order",
+
+          "noInternet" : "There is no Internet",
+          "tryAgain" : "Try again",
+
+          "deliveryAddress" : "Your delivery adress",
+          "city" : "City",
+          "street" : "Street",
+          "house" : "House",
+
+          "save" : "Save",
+          
+          "clothes" : "Clothes",
+          "shoes" : "Shoes",
+          "furniture" : "Furniture",
+          "electronics" : "Electronics",
+          "other" : "Others"
+
 }

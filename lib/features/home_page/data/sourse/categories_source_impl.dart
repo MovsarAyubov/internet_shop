@@ -14,7 +14,7 @@ class LoadingCategoriesSourceImpl implements LoadingCategoriesSource {
     required this.mainApi,
   });
   @override
-  Future<AllCategoriesModel> getAllCategories() async {
+  Future<CategoriesModel> getAllCategories() async {
     final response = await mainApi.client.get(
       Uri.parse("https://api.escuelajs.co/api/v1/categories"),
       headers: {"Content-Type": "application/json"},
@@ -22,7 +22,7 @@ class LoadingCategoriesSourceImpl implements LoadingCategoriesSource {
 
     if (response.statusCode == 200) {
       final allCategories = json.decode(response.body);
-      return AllCategoriesModel.fromJson(allCategories);
+      return CategoriesModel.fromJson(allCategories);
     } else {
       throw ServerException();
     }

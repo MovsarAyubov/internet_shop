@@ -1,22 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:internet_shop/features/home_page/presentation/widget/shimmer_banner.dart';
+import 'package:internet_shop/features/home_page/presentation/cubit/discounted_products_cubit.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 import '../../../../core/colors.dart';
 import '../../../../core/components/custom_sized_box.dart';
 import '../../../../core/components/roboto_text.dart';
 import '../../../../core/components/size_config.dart';
 import '../../../../core/components/top_app_bar.dart';
+import '../../../../core/cubits/smooth_indicator_cubit.dart';
+import '../../../../core/widgets/griv_view_builder.dart';
+import '../../../../router/app_router.dart';
 import '../../../../setup.dart';
+import '../../../categories_page/presentation/cubit/products_by_category_cubit.dart';
 import '../../../concrete_product_page/presentation/cubit/concrete_product_cubit.dart';
+import '../../../shopping_list/presentation/cubit/shopping_list_cubit.dart';
+import '../../data/model/all_categories_model.dart';
 import '../cubit/categories_cubit.dart';
-import '../cubit/categories_state.dart';
 import '../cubit/products_cubit.dart';
 import '../cubit/products_state.dart';
-import '../cubit/smooth_indicator_cubit.dart';
 import '../widget/carousel_builder.dart';
-import '../widget/product_card.dart';
+import '../widget/category_button.dart';
+import '../widget/error_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,155 +31,144 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+    with AutomaticKeepAliveClientMixin {
   final productsCubit = getIt<ProductsCubit>();
   final concreteProductCubit = getIt<ConcreteProductCubit>();
   final categoriesCubit = getIt<CategoriesCubit>();
   final indicatorCubit = SmoothIndicatorCubit();
+  final appRouter = getIt<AppRouter>();
+  final shoppingListCubit = ShoppingListCubit();
+  final productsByCategoryCubit = getIt<ProductsByCategoryCubit>();
+  final discountedProductsCubit = DiscountedProductsCubit();
 
   final _scrollController = ScrollController();
 
   @override
   void initState() {
     categoriesCubit.getCategories();
-    productsCubit.loadProducts(
-        page: PagesState().pages, count: PagesState().itemsInPage);
+    productsCubit.loadProducts();
 
     super.initState();
     _scrollController.addListener(() {
-      print("lksjdfl");
       if (_scrollController.position.maxScrollExtent ==
           _scrollController.offset) {
-        productsCubit.loadProducts(page: 10, count: 10);
+        // productsCubit.loadProducts(offset: 10);
       }
     });
   }
 
+  final categories = MyCategories.getCategories();
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        print("start2");
-        if (_scrollController.position.maxScrollExtent ==
-            _scrollController.offset) {
-          print("start2");
-          productsCubit.loadProducts(
-              page: PagesState().pages, count: PagesState().itemsInPage);
-        }
-      }),
-      appBar: AppBarWithSearch(
+      appBar: MyAppBar(
         title: AppLocalizations.of(context)!.mainPage,
-        appBarHeight: SizeConfig(context, 112)(),
+        appBarHeight: SizeConfig(context, 64)(),
       ),
       backgroundColor: backgroundColor,
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: RobotoText(
-              AppLocalizations.of(context)!.categories,
-              color: blackText,
-              fontSize: 22,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          BlocBuilder<CategoriesCubit, CategoriesState>(
-              bloc: categoriesCubit,
-              builder: (context, state) {
-                if (state is LoadedCategoriesState) {
-                  return CarouselBuilder(
-                      state: state, indicatorCubit: indicatorCubit);
-                } else {
-                  return const SizedBox();
-                }
-              }),
-          const CustomSizedBox(
-            height: 32,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: RobotoText(
-              AppLocalizations.of(context)!.products,
-              color: blackText,
-              fontSize: 22,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          BlocBuilder<ProductsCubit, ProductsState>(
-            bloc: productsCubit,
-            builder: (context, state) {
-              if (state is ErrorState) {
-                return const Center(child: RobotoText("Error"));
-              } else if (state is SuccessState) {
-                return GridView.builder(
-                  controller: _scrollController,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 5,
-                      crossAxisSpacing: 5,
-                      childAspectRatio: 0.9),
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount:
-                      state.listOfProductsEndtity.listOfProduct.length + 2,
-                  itemBuilder: (context, index) {
-                    if (index <
-                        state.listOfProductsEndtity.listOfProduct.length) {
-                      return ProductCard(itemIndex: index, state: state);
-                    } else {
-                      return ShimmerBanner();
-                    }
-                  },
-                );
-              } else {
-                return const SizedBox();
-              }
-            },
-          )
-        ],
-      ),
+      body: BlocBuilder<ProductsCubit, ProductsState>(
+          bloc: productsCubit,
+          builder: (context, state) {
+            if (state is SuccessState) {
+              return SingleChildScrollView(
+                controller: _scrollController,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CarouselBuilder(
+                        appRouter: appRouter,
+                        discountedProductsCubit: discountedProductsCubit,
+                        indicatorCubit: indicatorCubit),
+                    const CustomSizedBox(
+                      height: 10,
+                    ),
+                    RobotoText(
+                      AppLocalizations.of(context)!.categories,
+                      color: blackText,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 5,
+                              mainAxisSpacing: 13,
+                              crossAxisSpacing: 13,
+                              childAspectRatio: 1 / 1.6),
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return CategoryButton(
+                          push: () {
+                            productsByCategoryCubit.loadProductsByCategory(
+                                categoryId: categories[index].id);
+                            appRouter.push(
+                              ProductsByCategoryRoute(
+                                  discountedProductsCubit:
+                                      discountedProductsCubit,
+                                  categoryIndex: index,
+                                  productsByCategoryCubit:
+                                      productsByCategoryCubit,
+                                  appRouter: appRouter,
+                                  indicatorCubit: indicatorCubit),
+                            );
+                          },
+                          title: categories[index].name,
+                          icon: categories[index].image,
+                        );
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    RobotoText(
+                      AppLocalizations.of(context)!.products,
+                      color: blackText,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    GridViewBuilder(
+                        showSimilarProducts: true,
+                        indicatorCubit: indicatorCubit,
+                        appRouter: appRouter,
+                        products: state.listOfProducts),
+                  ],
+                ),
+              );
+            } else if (state is ErrorState) {
+              return InternetErrorWidget(
+                callback: () {
+                  productsCubit.loadProducts();
+                },
+              );
+            } else {
+              return const Center(
+                child: CustomSizedBox(
+                  height: 100,
+                  width: 100,
+                  child: LoadingIndicator(
+                    indicatorType: Indicator.lineScale,
+                    colors: [],
+                  ),
+                ),
+              );
+            }
+          }),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
-
-
-
-// BlocBuilder<ProductsCubit, ProductsState>(
-        // bloc: productsCubit,
-        // builder: (context, state) {
-          // if (state is SuccessState) {
-            // return ListView.builder(
-                // itemCount: state.listOfProductsEndtity.listOfProduct.length,
-                // itemBuilder: (context, index) {
-                  // return Center(
-                    // child: Text(
-                        // state.listOfProductsEndtity.listOfProduct[index].title),
-                  // );
-                // });
-          // } else if (state is LoadingProductState) {
-            // return const Center(
-              // child: CircularProgressIndicator(),
-            // );
-          // }
-// 
-          // return const Center(child: Text("NO PRODUCT"));
-        // },
-      // ),
-
-
-
-      /*             // CarouselSlider.builder(
-            //   options: CarouselOptions(
-            //       height: SizeConfig(context, 140)(),
-            //       viewportFraction: 0.8,
-            //       enableInfiniteScroll: true,
-            //       autoPlayInterval: const Duration(seconds: 5),
-            //       autoPlay: true,
-            //       pageSnapping: true),
-            //   itemCount: 5,
-            //   itemBuilder: (context, index, realIndex) {
-            //     return const CategoryBanner();
-            //   },
-            // )
-*/

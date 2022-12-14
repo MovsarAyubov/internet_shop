@@ -18,7 +18,7 @@ class LoadingSourceImpl implements LoadingSource {
       {required int page, required int count}) async {
     final response = await mainApi.client.get(
       Uri.parse(
-          "https://api.escuelajs.co/api/v1/products/?offset=$page&limit=$count"),
+          "https://api.escuelajs.co/api/v1/products?offset=$page&limit=$count"),
       headers: {"Content-Type": "application/json"},
     );
 

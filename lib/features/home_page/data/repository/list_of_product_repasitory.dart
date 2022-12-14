@@ -1,12 +1,11 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
-import 'package:internet_shop/features/home_page/domain/entity/list_of_products_entity.dart';
-import 'package:internet_shop/core/error/failure.dart';
 
-import '../../domain/repository/list_of_products_repository.dart';
+import '../../../../core/error/failure.dart';
+import '../../../concrete_product_page/domain/entity/product_entity.dart';
+import '../../domain/repository/products_repository.dart';
 import '../sourse/products_source.dart';
 
 @LazySingleton(as: ListOfProductsRepository)
@@ -17,12 +16,12 @@ class ListOfProductsRepositoryImpl implements ListOfProductsRepository {
   );
 
   @override
-  Future<Either<Failure, ListOfProductsEndtity>> getListOfProducts(
+  Future<Either<Failure, List<ConcreteProductEntity>>> getListOfProducts(
       {required int page, required int count}) async {
     try {
       final remoteListOfProducts =
           await loadingSource.getListOfProducts(page: page, count: count);
-      return Right(remoteListOfProducts);
+      return Right(remoteListOfProducts.listOfProductsModel);
     } on SocketException {
       return Left(ServerFailure());
     }

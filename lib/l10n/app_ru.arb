@@ -4,5 +4,38 @@
           "catalog" : "Каталог",
           "categories" : "Категории",
           "products" : "Товары",
-          "price" : "Цена"
+          "price" : "Цена",
+          "newPrice" : "Новая цена",
+          "oldPrice" : "Старая цена", 
+          "description" : "Описание",
+          "deleteFromShoppingList" : "Удалить из корзины",
+          "addToShoppingList" :  "Добавить в корзину",
+          "shoppingList" : "Корзина товаров",
+          "similarProducts" : "Похожие товары",
+          "products" : "Товары",
+          "cleanShoppingList" : "Очистить корзину",
+          "emptyShoppingList" : "Корзина пуста",
+          "editAvatar" : "Изменить аватар",
+          "favorites" : "Избранное",
+          "favoritesIsEmpty" : "Favorites is empty", 
+          "alreadyAdded" : "Уже добавлено",
+          "yourShoppingList" : "Ваша корзина",
+          "orderAmount" : "Сумма заказа",
+          "makeAnOrder" : "Оформить заказ",
+          
+          "noInternet" : "Нет подключения к интернету",
+          "tryAgain" : "Повторить попытку",
+
+          "deliveryAddress" : "Адрес доставки",
+          "city" : "Город",
+          "street" : "Улица",
+          "house" : "Дом",
+
+          "save" : "Сохранить",
+
+          "clothes" : "Одежда",
+          "shoes" : "Обувь",
+          "furniture" : "Мебель",
+          "electronics" : "Электроника",
+          "other" : "Другое"
 }

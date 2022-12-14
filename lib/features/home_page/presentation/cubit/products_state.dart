@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import 'package:internet_shop/features/home_page/domain/entity/list_of_products_entity.dart';
+import 'package:internet_shop/features/concrete_product_page/domain/entity/product_entity.dart';
 
 abstract class ProductsState extends Equatable {}
 
@@ -24,22 +24,11 @@ class LoadingState extends ProductsState {
 }
 
 class SuccessState extends ProductsState {
-  final ListOfProductsEndtity listOfProductsEndtity;
+  final List<ConcreteProductEntity> listOfProducts;
   SuccessState({
-    required this.listOfProductsEndtity,
+    this.listOfProducts = const [],
   });
 
   @override
-  List<Object?> get props => [listOfProductsEndtity];
-}
-
-class PagesState extends ProductsState {
-  final int pages;
-  final int itemsInPage;
-  PagesState({
-    this.pages = 0,
-    this.itemsInPage = 10,
-  });
-  @override
-  List<Object?> get props => [];
+  List<Object?> get props => [listOfProducts];
 }
