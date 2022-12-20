@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:internet_shop/features/delivery_address_page/presentation/cubit/delivery_address_page_cubit.dart';
 import 'package:internet_shop/router/app_router.dart';
 
 import '../../features/delivery_address_page/presentation/cubit/delivery_address_page_state.dart';
+import '../../l10n/l10n.dart';
 import '../../setup.dart';
 import '../colors.dart';
 import '../components/roboto_text.dart';
@@ -41,7 +41,7 @@ class _DeliveryAdressState extends State<DeliveryAdress> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     RobotoText(
-                      AppLocalizations.of(context)!.deliveryAddress,
+                      localizationInstance.deliveryAddress,
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                       color: blueText,
@@ -53,7 +53,7 @@ class _DeliveryAdressState extends State<DeliveryAdress> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         RobotoText(
-                          AppLocalizations.of(context)!.city,
+                          localizationInstance.city,
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
                           color: blackText,
@@ -73,7 +73,7 @@ class _DeliveryAdressState extends State<DeliveryAdress> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         RobotoText(
-                          AppLocalizations.of(context)!.street,
+                          localizationInstance.street,
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
                           color: blackText,
@@ -93,7 +93,7 @@ class _DeliveryAdressState extends State<DeliveryAdress> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         RobotoText(
-                          AppLocalizations.of(context)!.house,
+                          localizationInstance.house,
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
                           color: blackText,

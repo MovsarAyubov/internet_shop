@@ -1,4 +1,4 @@
-import 'dart:convert';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:equatable/equatable.dart';
 
@@ -9,7 +9,7 @@ class ConcreteProductEntity extends Equatable {
   final int productCount;
   final int id;
   final String title;
-  final int price;
+  final num price;
   final String description;
   final List<String> images;
   final Category category;
@@ -115,9 +115,6 @@ class Category extends Equatable {
     required this.image,
   });
 
-  @override
-  List<Object> get props => [id, name, image];
-
   Category copyWith({
     int? id,
     String? name,
@@ -131,28 +128,24 @@ class Category extends Equatable {
   }
 
   Map<String, dynamic> toMap() {
-    final result = <String, dynamic>{};
-
-    result.addAll({'id': id});
-    result.addAll({'name': name});
-    result.addAll({'image': image});
-
-    return result;
+    return <String, dynamic>{
+      'id': id,
+      'name': name,
+      'image': image,
+    };
   }
 
   factory Category.fromMap(Map<String, dynamic> map) {
     return Category(
-      id: map['id']?.toInt() ?? 0,
-      name: map['name'] ?? '',
-      image: map['image'] ?? '',
+      id: (map["id"] ?? 0) as int,
+      name: (map["name"] ?? '') as String,
+      image: (map["image"] ?? '') as String,
     );
   }
 
-  String toJson() => json.encode(toMap());
-
-  factory Category.fromJson(String source) =>
-      Category.fromMap(json.decode(source));
+  @override
+  bool get stringify => true;
 
   @override
-  String toString() => 'Category(id: $id, name: $name, image: $image)';
+  List<Object> get props => [id, name, image];
 }

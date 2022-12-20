@@ -6,13 +6,12 @@ import 'package:internet_shop/core/components/size_config.dart';
 import 'package:internet_shop/core/widgets/delivery_adress.dart';
 import 'package:internet_shop/features/delivery_address_page/presentation/cubit/delivery_address_page_cubit.dart';
 import 'package:internet_shop/validation/validation_type.dart';
-import 'package:internet_shop/validation/validator.dart';
 
 import '../../../../core/components/app_bar_with_leading.dart';
 import '../../../../setup.dart';
 import '../cubit/delivery_address_page_state.dart';
 import '../../../../core/widgets/custom_text_field.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:internet_shop/l10n/l10n.dart';
 
 class DeliveryAddressPage extends StatefulWidget {
   const DeliveryAddressPage({super.key});
@@ -23,17 +22,14 @@ class DeliveryAddressPage extends StatefulWidget {
 
 class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
   final deliveryAddressCubit = getIt<DeliveryAddressPageCubit>();
-
   final _cityController = TextEditingController();
   final _streetController = TextEditingController();
   final _houseController = TextEditingController();
 
-  final validator = Validator(globalKey: GlobalKey<FormState>());
+  final formKey = GlobalKey<FormState>();
 
   void clearFields() {
-    _cityController.clear();
-    _streetController.clear();
-    _houseController.clear();
+    formKey.currentState?.reset();
   }
 
   @override
@@ -47,23 +43,23 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
           child: Column(
             children: [
               Form(
-                key: validator.globalKey,
+                key: formKey,
                 child: Column(
                   children: [
                     CustomTextField(
                       validationType: LettersAndDash.lettersAndDash,
                       controller: _cityController,
-                      title: AppLocalizations.of(context)!.city,
+                      title: localizationInstance.city,
                     ),
                     CustomTextField(
                       validationType: LettersAndNumbers.lettersAndNumbers,
                       controller: _streetController,
-                      title: AppLocalizations.of(context)!.street,
+                      title: localizationInstance.street,
                     ),
                     CustomTextField(
                       validationType: LettersAndNumbers.lettersAndNumbers,
                       controller: _houseController,
-                      title: AppLocalizations.of(context)!.house,
+                      title: localizationInstance.house,
                     ),
                   ],
                 ),
@@ -81,7 +77,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                 children: [
                   InkWell(
                     onTap: () {
-                      if (validator.validate()) {
+                      if (formKey.currentState?.validate() == true) {
                         deliveryAddressCubit.addAddress(
                             streetName: _streetController.text,
                             cityName: _cityController.text,
@@ -100,7 +96,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                       ),
                       child: Center(
                         child: RobotoText(
-                          AppLocalizations.of(context)!.save,
+                          localizationInstance.save,
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),

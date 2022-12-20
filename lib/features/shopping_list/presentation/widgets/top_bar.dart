@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:internet_shop/l10n/l10n.dart';
 
 import 'package:internet_shop/features/shopping_list/presentation/cubit/shopping_list_cubit.dart';
 
@@ -21,7 +21,7 @@ class TopBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         RobotoText(
-          "${AppLocalizations.of(context)!.products} ${shoppingListCubit.state.orders.length}",
+          "${localizationInstance.products} ${shoppingListCubit.state.orders.length}",
           fontSize: 16,
           fontWeight: FontWeight.w400,
           color: mediumGreyText,
@@ -34,7 +34,7 @@ class TopBar extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               RobotoText(
-                AppLocalizations.of(context)!.cleanShoppingList,
+                localizationInstance.cleanShoppingList,
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
                 color: blackText,

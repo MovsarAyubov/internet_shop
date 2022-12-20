@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:internet_shop/l10n/l10n.dart';
 
 import '../../../../core/colors.dart';
 import '../../../../core/components/roboto_text.dart';
@@ -21,7 +21,7 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
     return AlertDialog(
       title: Center(
         child: RobotoText(
-          AppLocalizations.of(context)!.exitMessage,
+          localizationInstance.exitMessage,
           color: blackText,
         ),
       ),
@@ -31,7 +31,7 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
             Navigator.of(context).pop();
           },
           child: RobotoText(
-            AppLocalizations.of(context)!.cancel,
+            localizationInstance.cancel,
             color: blackText,
           ),
         ),
@@ -41,7 +41,7 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
             Navigator.of(context).pop();
           },
           child: RobotoText(
-            AppLocalizations.of(context)!.exit,
+            localizationInstance.exit,
             color: blackText,
           ),
         ),

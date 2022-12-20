@@ -1,22 +1,30 @@
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:internet_shop/features/auth_page/domain/entities/account_entity.dart';
 import 'package:internet_shop/features/auth_page/presentation/cubit/account_in_system_cubit.dart';
 
-import '../../../../setup.dart';
+import '../../domain/entities/account_request_entity.dart';
 import 'auth_page_state.dart';
 
+@LazySingleton()
 class AuthPageCubit extends HydratedCubit<AuthPageState> {
-  AuthPageCubit() : super(const AuthPageState());
+  final AccountInSystemCubit accountInSystemCubit;
+  final AccountRequestEntity entity = AccountRequestEntity();
+  AuthPageCubit(this.accountInSystemCubit) : super(const AuthPageState());
 
-  final accountInSystemCubit = getIt<AccountInSystemCubit>();
+  bool get isSigningIn => state.signInOrUp == SignInOrUp.signIn;
+  bool get isSigningUp => state.signInOrUp == SignInOrUp.signUp;
 
-  bool isUserNameExist(String userName) {
-    return state.accounts.any((element) => element.userName == userName);
+  bool get isUserNameExist {
+    return state.accounts.any((element) => element.userName == entity.name);
   }
 
-  bool isUserExist(Account account) {
-    return state.accounts.contains(account);
+  bool get isUserExist {
+    return state.accounts
+        .contains(Account(userName: entity.name, password: entity.pwd));
   }
+
+  void call() {}
 
   void signInOrUp() {
     if (state.signInOrUp == SignInOrUp.signUp) {
@@ -26,15 +34,17 @@ class AuthPageCubit extends HydratedCubit<AuthPageState> {
     }
   }
 
-  void signUp(Account account) {
-    if (!isUserNameExist(account.userName)) {
+  void signUp() {
+    if (!isUserNameExist) {
+      final account = Account(userName: entity.name, password: entity.pwd);
       final list = List<Account>.from(state.accounts)..add(account);
       emit(AuthPageState(accounts: list));
     }
   }
 
-  void signIn(Account account) {
-    if (isUserExist(account)) {
+  void signIn() {
+    final account = Account(userName: entity.name, password: entity.pwd);
+    if (isUserExist) {
       accountInSystemCubit.signIn(account);
     }
   }

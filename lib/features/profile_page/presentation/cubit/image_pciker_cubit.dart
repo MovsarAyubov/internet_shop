@@ -23,8 +23,8 @@ class ImagePickerCubit extends Cubit<ImagePickerState> {
           ),
         );
       }
-    } on PlatformException catch (e) {
-      print(e);
+    } on PlatformException catch (_) {
+      //
     }
   }
 }
