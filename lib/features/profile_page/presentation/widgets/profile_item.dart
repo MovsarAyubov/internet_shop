@@ -4,10 +4,12 @@ import '../../../../core/colors.dart';
 import '../../../../core/components/roboto_text.dart';
 
 class ProfileItem extends StatelessWidget {
+  final Color textColor;
   final VoidCallback callback;
   final String title;
   const ProfileItem({
     Key? key,
+    this.textColor = blackText,
     required this.callback,
     required this.title,
   }) : super(key: key);
@@ -30,7 +32,7 @@ class ProfileItem extends StatelessWidget {
                   title,
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
-                  color: blackText,
+                  color: textColor,
                 ),
                 const Icon(
                   Icons.arrow_forward_ios,

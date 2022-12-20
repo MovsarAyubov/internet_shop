@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:internet_shop/features/auth_page/presentation/pages/auth_page.dart';
 import 'package:internet_shop/features/delivery_address_page/presentation/pages/delivery_address_page.dart';
 import 'package:internet_shop/features/favorites_page/presentation/pages/favorites_page.dart';
 
@@ -26,6 +27,7 @@ part 'app_router.gr.dart';
     AutoRoute(page: ProductsByCategoryPage),
     AutoRoute(page: FavoritesPage),
     AutoRoute(page: DeliveryAddressPage),
+    AutoRoute(page: AuthPage),
   ],
 )
 @singleton

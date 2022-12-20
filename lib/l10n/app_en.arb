@@ -32,6 +32,31 @@
           "house" : "House",
 
           "save" : "Save",
+
+          "fieldIsEmpty" : "This field can't be empty",
+          "unauthorizedCharacters" : "Use of unauthorized characters",
+          "minLengthError" : "Password must have at least 6 characters",
+
+          "auth" : "Authentication",
+          "userName" : "User name",
+          "password" : "Password",
+          "signIn" : "Sign in",
+          "signUp" : "Sign up",
+          "haveAnAccount" : "Already have an account?",
+          "haveNotAccount" : "Don't have an account?",
+          "successReg" : "Registration was successful",
+          "userNameTaken" : "User name taken, choose another",
+          "authScreenText1" : "Welcome",
+          "authScreenText2" : "to our shop!",
+          "incorrectData" : "Incorrect user name or password",
+          "successSignIn" : "You are logged",
+          "exit" : "Exit",
+          "exitMessage" : "Do you want to exit from system?",
+          "cancel" : "Cancel",
+          "notLogged" : "You are not logged, sign in to add products in shopping list",
+
+          "gallery" : "Gallery",
+          "camera" : "Camera",
           
           "clothes" : "Clothes",
           "shoes" : "Shoes",

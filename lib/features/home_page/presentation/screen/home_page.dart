@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:internet_shop/features/home_page/presentation/cubit/discounted_products_cubit.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
 import '../../../../core/colors.dart';
@@ -14,10 +13,9 @@ import '../../../../core/widgets/griv_view_builder.dart';
 import '../../../../router/app_router.dart';
 import '../../../../setup.dart';
 import '../../../categories_page/presentation/cubit/products_by_category_cubit.dart';
-import '../../../concrete_product_page/presentation/cubit/concrete_product_cubit.dart';
-import '../../../shopping_list/presentation/cubit/shopping_list_cubit.dart';
 import '../../data/model/all_categories_model.dart';
 import '../cubit/categories_cubit.dart';
+import '../cubit/discounted_products_cubit.dart';
 import '../cubit/products_cubit.dart';
 import '../cubit/products_state.dart';
 import '../widget/carousel_builder.dart';
@@ -33,13 +31,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
-  final productsCubit = getIt<ProductsCubit>();
-  final concreteProductCubit = getIt<ConcreteProductCubit>();
-  final categoriesCubit = getIt<CategoriesCubit>();
-  final indicatorCubit = SmoothIndicatorCubit();
-  final appRouter = getIt<AppRouter>();
-  final shoppingListCubit = ShoppingListCubit();
   final productsByCategoryCubit = getIt<ProductsByCategoryCubit>();
+  final productsCubit = getIt<ProductsCubit>();
+  final categoriesCubit = getIt<CategoriesCubit>();
+  final appRouter = getIt<AppRouter>();
+  final indicatorCubit = SmoothIndicatorCubit();
   final discountedProductsCubit = DiscountedProductsCubit();
 
   final _scrollController = ScrollController();
@@ -50,11 +46,13 @@ class _HomePageState extends State<HomePage>
     productsCubit.loadProducts();
 
     super.initState();
-    _scrollController.addListener(() {
-      if (_scrollController.position.maxScrollExtent ==
-          _scrollController.offset) {
-        // productsCubit.loadProducts(offset: 10);
-      }
+    Future.delayed(Duration.zero, () {
+      _scrollController.addListener(() async {
+        if (_scrollController.position.pixels ==
+            _scrollController.position.maxScrollExtent) {
+          await productsCubit.loadProducts();
+        }
+      });
     });
   }
 
@@ -144,13 +142,19 @@ class _HomePageState extends State<HomePage>
                         indicatorCubit: indicatorCubit,
                         appRouter: appRouter,
                         products: state.listOfProducts),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    !productsCubit.isLastChunk
+                        ? const Center(child: CircularProgressIndicator())
+                        : const SizedBox(),
                   ],
                 ),
               );
             } else if (state is ErrorState) {
               return InternetErrorWidget(
-                callback: () {
-                  productsCubit.loadProducts();
+                callback: () async {
+                  await productsCubit.loadProducts();
                 },
               );
             } else {

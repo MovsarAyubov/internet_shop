@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:internet_shop/router/app_router.dart';
-
+import 'package:internet_shop/core/colors.dart';
 import '../../../../core/components/top_app_bar.dart';
+import '../../../../router/app_router.dart';
 import '../../../../setup.dart';
+import '../../../auth_page/presentation/cubit/account_in_system_cubit.dart';
+import '../../../auth_page/presentation/cubit/account_in_system_state.dart';
+import '../widgets/alert_dialog.dart';
+import '../widgets/current_user.dart';
 import '../widgets/profile_avatar.dart';
 import '../widgets/profile_item.dart';
 
@@ -16,6 +21,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final appRouter = getIt<AppRouter>();
+  final accountInSystemCubit = getIt<AccountInSystemCubit>();
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +36,10 @@ class _ProfilePageState extends State<ProfilePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const ProfileAvatar(),
+              const SizedBox(
+                height: 15,
+              ),
+              const CurrentUser(),
               const SizedBox(
                 height: 15,
               ),
@@ -49,6 +59,23 @@ class _ProfilePageState extends State<ProfilePage> {
                 },
                 title: AppLocalizations.of(context)!.favorites,
               ),
+              BlocBuilder<AccountInSystemCubit, AccountInSystemState>(
+                  bloc: accountInSystemCubit,
+                  builder: (context, state) {
+                    if (accountInSystemCubit.state.logged) {
+                      return ProfileItem(
+                        textColor: redText,
+                        callback: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) => const MyAlertDialog());
+                        },
+                        title: AppLocalizations.of(context)!.exit,
+                      );
+                    } else {
+                      return const SizedBox();
+                    }
+                  })
             ],
           ),
         ));

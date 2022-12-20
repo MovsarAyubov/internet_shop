@@ -12,7 +12,20 @@ class DeliveryAddressPageCubit extends HydratedCubit<DeliveryAddressPageState> {
       required String streetName,
       required String houseNumber}) {
     emit(DeliveryAddressPageState(
-        cityName: cityName, streetName: streetName, house: houseNumber));
+        cityName: firstLetterToUpperCase(cityName),
+        streetName: firstLetterToUpperCase(streetName),
+        house: firstLetterToUpperCase(houseNumber)));
+  }
+
+  String firstLetterToUpperCase(String string) {
+    if (string.isNotEmpty) {
+      var list = string.split('');
+      list[0] = string[0].toUpperCase();
+
+      return list.join();
+    } else {
+      return string;
+    }
   }
 
   @override

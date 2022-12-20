@@ -75,6 +75,12 @@ class _$AppRouter extends RootStackRouter {
         child: const DeliveryAddressPage(),
       );
     },
+    AuthRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const AuthPage(),
+      );
+    },
   };
 
   @override
@@ -106,6 +112,10 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(
           DeliveryAddressRoute.name,
           path: '/delivery-address-page',
+        ),
+        RouteConfig(
+          AuthRoute.name,
+          path: '/auth-page',
         ),
       ];
 }
@@ -277,4 +287,16 @@ class DeliveryAddressRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'DeliveryAddressRoute';
+}
+
+/// generated route for
+/// [AuthPage]
+class AuthRoute extends PageRouteInfo<void> {
+  const AuthRoute()
+      : super(
+          AuthRoute.name,
+          path: '/auth-page',
+        );
+
+  static const String name = 'AuthRoute';
 }

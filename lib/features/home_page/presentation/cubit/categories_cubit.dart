@@ -12,22 +12,9 @@ class CategoriesCubit extends Cubit<CategoriesState> {
     this.getAllCategories,
   ) : super(LoadedCategoriesState());
 
-  getCategories() {
+  void getCategories() {
     final categories = MyCategories.getCategories();
 
     emit(LoadedCategoriesState(allCategoriesEntity: categories));
   }
 }
-
-
-
-
-
-/*
-async {
-    final response = await getAllCategories();
-    response.fold((error) => emit(CategoriesErrorState()), (result) {
-      emit(LoadedCategoriesState(allCategoriesEntity: result));
-    });
-  }
-*/
