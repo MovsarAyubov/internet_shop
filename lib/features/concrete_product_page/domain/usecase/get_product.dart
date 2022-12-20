@@ -8,7 +8,7 @@ import '../../../../core/error/failure.dart';
 @LazySingleton()
 class GetProduct {
   final ConcreteProductRepository concreteProductRepository;
-  GetProduct({
+  const GetProduct({
     required this.concreteProductRepository,
   });
 

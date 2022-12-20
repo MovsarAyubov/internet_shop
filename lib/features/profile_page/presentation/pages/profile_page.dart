@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:internet_shop/l10n/l10n.dart';
 import 'package:internet_shop/core/colors.dart';
 import '../../../../core/components/top_app_bar.dart';
 import '../../../../router/app_router.dart';
@@ -49,7 +49,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     const DeliveryAddressRoute(),
                   );
                 },
-                title: AppLocalizations.of(context)!.deliveryAddress,
+                title: localizationInstance.deliveryAddress,
               ),
               ProfileItem(
                 callback: () {
@@ -57,7 +57,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     const FavoritesRoute(),
                   );
                 },
-                title: AppLocalizations.of(context)!.favorites,
+                title: localizationInstance.favorites,
               ),
               BlocBuilder<AccountInSystemCubit, AccountInSystemState>(
                   bloc: accountInSystemCubit,
@@ -70,7 +70,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               context: context,
                               builder: (context) => const MyAlertDialog());
                         },
-                        title: AppLocalizations.of(context)!.exit,
+                        title: localizationInstance.exit,
                       );
                     } else {
                       return const SizedBox();

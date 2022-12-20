@@ -2,10 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../l10n/l10n.dart';
 import '../colors.dart';
 import '../components/custom_sized_box.dart';
 import '../components/roboto_text.dart';
@@ -58,7 +58,7 @@ class _ProductState extends State<ProductCard> {
                       height: 5,
                     ),
                     RobotoText(
-                      "${AppLocalizations.of(context)!.price}: ${product.price} RUB",
+                      "${localizationInstance.price}: ${product.price} RUB",
                       color: blackText,
                       fontSize: 14,
                       maxLines: 1,

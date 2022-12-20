@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:internet_shop/l10n/l10n.dart';
 
 import 'package:internet_shop/features/concrete_product_page/domain/entity/product_entity.dart';
 
@@ -30,7 +30,7 @@ class ProductInformation extends StatelessWidget {
           height: 10,
         ),
         RobotoText(
-          AppLocalizations.of(context)!.description,
+          localizationInstance.description,
           fontSize: 14,
           fontWeight: FontWeight.w400,
           color: mediumGreyText,

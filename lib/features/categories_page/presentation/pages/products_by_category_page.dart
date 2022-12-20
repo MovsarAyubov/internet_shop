@@ -8,10 +8,10 @@ import '../../../../core/components/custom_sized_box.dart';
 import '../../../../core/components/roboto_text.dart';
 import '../../../../core/cubits/smooth_indicator_cubit.dart';
 import '../../../../core/widgets/griv_view_builder.dart';
+import '../../../../l10n/l10n.dart';
 import '../../../../router/app_router.dart';
 import '../../../home_page/presentation/cubit/discounted_products_cubit.dart';
 import '../cubit/products_by_category_cubit.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProductsByCategoryPage extends StatelessWidget {
   final int categoryIndex;
@@ -30,11 +30,11 @@ class ProductsByCategoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categoryNames = [
-      AppLocalizations.of(context)!.clothes,
-      AppLocalizations.of(context)!.shoes,
-      AppLocalizations.of(context)!.furniture,
-      AppLocalizations.of(context)!.electronics,
-      AppLocalizations.of(context)!.other,
+      localizationInstance.clothes,
+      localizationInstance.shoes,
+      localizationInstance.furniture,
+      localizationInstance.electronics,
+      localizationInstance.other,
     ];
     return Scaffold(
       appBar: AppBarWithLeading(

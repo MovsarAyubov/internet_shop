@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_shop/core/colors.dart';
 import 'package:internet_shop/core/components/roboto_text.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:internet_shop/l10n/l10n.dart';
 import 'package:internet_shop/core/cubits/smooth_indicator_cubit.dart';
 import 'package:internet_shop/core/widgets/griv_view_builder.dart';
 import 'package:internet_shop/features/favorites_page/presentation/cubit/favorites_page_cubit.dart';
@@ -38,7 +38,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   RobotoText(
-                    AppLocalizations.of(context)!.favorites,
+                    localizationInstance.favorites,
                     fontWeight: FontWeight.w500,
                     fontSize: 22,
                     color: blackText,
@@ -57,7 +57,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
           } else {
             return Center(
               child: RobotoText(
-                AppLocalizations.of(context)!.favoritesIsEmpty,
+                localizationInstance.favoritesIsEmpty,
                 fontSize: 24,
                 fontWeight: FontWeight.w500,
                 color: blackText,

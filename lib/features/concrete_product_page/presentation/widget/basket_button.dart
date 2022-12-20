@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:internet_shop/features/auth_page/presentation/cubit/account_in_system_cubit.dart';
 
 import 'package:internet_shop/features/concrete_product_page/domain/entity/product_entity.dart';
@@ -8,6 +7,7 @@ import 'package:internet_shop/features/shopping_list/presentation/cubit/shopping
 import '../../../../core/colors.dart';
 import '../../../../core/components/roboto_text.dart';
 import '../../../../core/components/size_config.dart';
+import '../../../../l10n/l10n.dart';
 import '../../../../router/app_router.dart';
 import '../../../../setup.dart';
 
@@ -51,8 +51,8 @@ class _BasketButtonState extends State<BasketButton> {
         },
         label: RobotoText(
           widget.isInShoppingList
-              ? AppLocalizations.of(context)!.deleteFromShoppingList
-              : AppLocalizations.of(context)!.addToShoppingList,
+              ? localizationInstance.deleteFromShoppingList
+              : localizationInstance.addToShoppingList,
           fontSize: 14,
           fontWeight: FontWeight.w500,
         ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:internet_shop/l10n/l10n.dart';
 
 import '../../../../core/colors.dart';
 import '../../../../core/components/roboto_text.dart';
@@ -24,7 +24,7 @@ class OrderCost extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               RobotoText(
-                AppLocalizations.of(context)!.yourShoppingList,
+                localizationInstance.yourShoppingList,
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
                 color: blueText,
@@ -36,7 +36,7 @@ class OrderCost extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   RobotoText(
-                    AppLocalizations.of(context)!.orderAmount,
+                    localizationInstance.orderAmount,
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                     color: blackText,
@@ -66,7 +66,7 @@ class OrderCost extends StatelessWidget {
                   ),
                   child: Center(
                     child: RobotoText(
-                      AppLocalizations.of(context)!.makeAnOrder,
+                      localizationInstance.makeAnOrder,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:internet_shop/l10n/l10n.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:internet_shop/features/profile_page/presentation/cubit/image_pciker_cubit.dart';
 import 'package:internet_shop/router/app_router.dart';
@@ -42,7 +42,7 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
                       child: Icon(Icons.camera_alt_rounded),
                     ),
                     RobotoText(
-                      AppLocalizations.of(context)!.camera,
+                      localizationInstance.camera,
                       color: blackText,
                       fontSize: 18,
                     )
@@ -61,7 +61,7 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
                       child: Icon(Icons.image),
                     ),
                     RobotoText(
-                      AppLocalizations.of(context)!.gallery,
+                      localizationInstance.gallery,
                       color: blackText,
                       fontSize: 18,
                     )

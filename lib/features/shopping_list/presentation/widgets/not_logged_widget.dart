@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:internet_shop/l10n/l10n.dart';
 
 import 'package:internet_shop/router/app_router.dart';
 
@@ -21,7 +21,7 @@ class NotLogged extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           RobotoText(
-            AppLocalizations.of(context)!.notLogged,
+            localizationInstance.notLogged,
             fontSize: 20,
             textAlign: TextAlign.center,
             color: blackText,
@@ -31,7 +31,7 @@ class NotLogged extends StatelessWidget {
                 appRouter.push(const AuthRoute());
               },
               child: RobotoText(
-                AppLocalizations.of(context)!.signIn,
+                localizationInstance.signIn,
                 color: blueText,
               ))
         ],

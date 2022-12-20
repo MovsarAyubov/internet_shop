@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:internet_shop/l10n/l10n.dart';
 
 import 'package:internet_shop/features/concrete_product_page/domain/entity/product_entity.dart';
 
@@ -21,7 +21,7 @@ class DiscountedPrice extends StatelessWidget {
               Row(
                 children: [
                   RobotoText(
-                    "${AppLocalizations.of(context)!.oldPrice}:",
+                    "${localizationInstance.oldPrice}:",
                     color: blackText,
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
@@ -41,7 +41,7 @@ class DiscountedPrice extends StatelessWidget {
               Row(
                 children: [
                   RobotoText(
-                    "${AppLocalizations.of(context)!.newPrice}:",
+                    "${localizationInstance.newPrice}:",
                     color: blackText,
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
@@ -60,7 +60,7 @@ class DiscountedPrice extends StatelessWidget {
         : Row(
             children: [
               RobotoText(
-                "${AppLocalizations.of(context)!.price}:",
+                "${localizationInstance.price}:",
                 color: blackText,
                 fontSize: 18,
                 fontWeight: FontWeight.w500,

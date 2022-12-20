@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:internet_shop/l10n/l10n.dart';
 
 import 'package:internet_shop/core/colors.dart';
 import 'package:internet_shop/core/components/custom_sized_box.dart';
@@ -19,7 +19,7 @@ class InternetErrorWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           RobotoText(
-            AppLocalizations.of(context)!.noInternet,
+            localizationInstance.noInternet,
             fontSize: 18,
             fontWeight: FontWeight.w500,
             color: blackText,
@@ -39,8 +39,7 @@ class InternetErrorWidget extends StatelessWidget {
                     Radius.circular(10),
                   ),
                 ),
-                child: Center(
-                    child: RobotoText(AppLocalizations.of(context)!.tryAgain)),
+                child: Center(child: RobotoText(localizationInstance.tryAgain)),
               ),
             ),
           )

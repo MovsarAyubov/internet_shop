@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:internet_shop/l10n/l10n.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
 import '../../../../core/colors.dart';
@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage>
     super.build(context);
     return Scaffold(
       appBar: MyAppBar(
-        title: AppLocalizations.of(context)!.mainPage,
+        title: localizationInstance.mainPage,
         appBarHeight: SizeConfig(context, 64)(),
       ),
       backgroundColor: backgroundColor,
@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage>
                       height: 10,
                     ),
                     RobotoText(
-                      AppLocalizations.of(context)!.categories,
+                      localizationInstance.categories,
                       color: blackText,
                       fontSize: 22,
                       fontWeight: FontWeight.w400,
@@ -129,7 +129,7 @@ class _HomePageState extends State<HomePage>
                       height: 10,
                     ),
                     RobotoText(
-                      AppLocalizations.of(context)!.products,
+                      localizationInstance.products,
                       color: blackText,
                       fontSize: 22,
                       fontWeight: FontWeight.w400,
