@@ -20,8 +20,8 @@ class AllCategoriesRepositoryImpl implements AllCategoriesRepository {
       final remoteAllCategories =
           await loadingCategoriesSource.getAllCategories();
       return Right(remoteAllCategories.allCategories);
-    } on SocketException {
-      return Left(ServerFailure());
+    } on Failure catch (e) {
+      return Left(e);
     }
   }
 

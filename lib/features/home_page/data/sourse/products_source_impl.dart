@@ -1,11 +1,10 @@
-import 'dart:convert';
-
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:internet_shop/core/api/main_api.dart';
-import 'package:internet_shop/features/home_page/data/model/list_of_products_model.dart';
-import 'package:internet_shop/features/home_page/data/sourse/products_source.dart';
 
+import '../../../../core/api/main_api.dart';
 import '../../../../core/error/exceptions.dart';
+import '../../../concrete_product_page/data/model/concrete_product_model.dart';
+import 'products_source.dart';
 
 @LazySingleton(as: LoadingSource)
 class LoadingSourceImpl implements LoadingSource {
@@ -14,18 +13,15 @@ class LoadingSourceImpl implements LoadingSource {
     this.mainApi,
   );
   @override
-  Future<ListOfProductsModel> getListOfProducts(
+  Future<List<ConcreteProductModel>> getListOfProducts(
       {required int page, required int count}) async {
-    final response = await mainApi.client.get(
-      Uri.parse(
-          "https://api.escuelajs.co/api/v1/products?offset=$page&limit=$count"),
-      headers: {"Content-Type": "application/json"},
-    );
+    try {
+      final response = await mainApi.client().getProducts(page, count);
 
-    if (response.statusCode == 200) {
-      final listOfProducts = json.decode(response.body);
-      return ListOfProductsModel.fromJson(listOfProducts);
-    } else {
+      return response;
+    } catch (e) {
+      if (e is DioError) {}
+
       throw ServerException();
     }
   }

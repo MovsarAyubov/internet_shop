@@ -1,6 +1,6 @@
-import 'package:internet_shop/features/home_page/data/model/list_of_products_model.dart';
+import 'package:internet_shop/features/concrete_product_page/data/model/concrete_product_model.dart';
 
 abstract class LoadingSource {
-  Future<ListOfProductsModel> getListOfProducts(
+  Future<List<ConcreteProductModel>> getListOfProducts(
       {required int page, required int count});
 }

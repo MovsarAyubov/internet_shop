@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+import 'package:internet_shop/core/error/exceptions.dart';
 
 import 'package:internet_shop/core/error/failure.dart';
 import 'package:internet_shop/features/categories_page/data/datasources/categories_source.dart';
@@ -20,9 +21,9 @@ class CategoriesRepositoryImpl implements CategoriesRepasitory {
     try {
       final remoteListOfProducts =
           await categorySource.getProductsByCategory(categoryId);
-      return Right(remoteListOfProducts.listOfProductsModel);
+      return Right(remoteListOfProducts);
     } on SocketException {
-      return Left(ServerFailure());
+      return const Left(ServerFailure("", 0));
     }
   }
 

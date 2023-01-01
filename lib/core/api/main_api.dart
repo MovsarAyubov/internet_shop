@@ -1,7 +1,20 @@
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:internet_shop/core/api/client.dart';
 
-@LazySingleton()
+@Injectable()
 class MainApi {
-  http.Client get client => http.Client();
+  const MainApi();
+
+  RestClient client() {
+    final dio = Dio(
+      BaseOptions(
+        headers: {
+          "Content-Type": "application/json",
+        },
+      ),
+    );
+
+    return RestClient(dio, baseUrl: "https://api.escuelajs.co/api/v1/");
+  }
 }

@@ -1,5 +1,5 @@
-import '../../../home_page/data/model/list_of_products_model.dart';
+import '../../../concrete_product_page/data/model/concrete_product_model.dart';
 
 abstract class CategorySource {
-  Future<ListOfProductsModel> getProductsByCategory(int categoriId);
+  Future<List<ConcreteProductModel>> getProductsByCategory(int categoriId);
 }

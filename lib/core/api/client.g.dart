@@ -12,14 +12,16 @@ class _RestClient implements RestClient {
   _RestClient(
     this._dio, {
     this.baseUrl,
-  });
+  }) {
+    baseUrl ??= 'https://api.escuelajs.co/api/v1/';
+  }
 
   final Dio _dio;
 
   String? baseUrl;
 
   @override
-  Future<ListOfProductsModel> getProducts(
+  Future<List<ConcreteProductModel>> getProducts(
     offset,
     limit,
   ) async {
@@ -30,8 +32,8 @@ class _RestClient implements RestClient {
     };
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ListOfProductsModel>(Options(
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<ConcreteProductModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -43,7 +45,36 @@ class _RestClient implements RestClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ListOfProductsModel.fromJson(_result.data!);
+    var value = _result.data!
+        .map((dynamic i) =>
+            ConcreteProductModel.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
+  Future<List<ConcreteProductModel>> getProductsByCategory(categoryId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<ConcreteProductModel>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/categories/${categoryId}/products',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) =>
+            ConcreteProductModel.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 

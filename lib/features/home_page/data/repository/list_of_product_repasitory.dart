@@ -21,9 +21,9 @@ class ListOfProductsRepositoryImpl implements ListOfProductsRepository {
     try {
       final remoteListOfProducts =
           await loadingSource.getListOfProducts(page: page, count: count);
-      return Right(remoteListOfProducts.listOfProductsModel);
-    } on SocketException {
-      return Left(ServerFailure());
+      return Right(remoteListOfProducts);
+    } catch (e) {
+      return const Left(FailureSimulation());
     }
   }
 }
