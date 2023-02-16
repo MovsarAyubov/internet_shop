@@ -1,7 +1,7 @@
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:internet_shop/features/concrete_product_page/domain/entity/product_entity.dart';
 
+import '../../../concrete_product_page/domain/entity/product_entity.dart';
 import 'favorites_page_state.dart';
 
 @LazySingleton()
