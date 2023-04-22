@@ -1,16 +1,19 @@
-# internet_shop
+Проект интернет магазин.
 
-A new Flutter project.
+Товары загружаются с flatzi_fake_api. 
 
-## Getting Started
+Реализована функция получения всех товаров с api при помощи пагинации и функция получения товаров по категориям.
+В приложении присутствует механизм локализации. Поддерживаемые языки: русский, английский.
 
-This project is a starting point for a Flutter application.
+В разработке использовалась clean architecture.
 
-A few resources to get you started if this is your first Flutter project:
+Стэк:
+1. Cubit
+2. Hydrated cubit
+3. Dio
+4. Retrofit
+5. Auto route
+6. Equatable
+7. Get_it
+8. Injectable
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
